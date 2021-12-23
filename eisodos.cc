@@ -2,12 +2,10 @@
 #include <cstring>
 using namespace std;
 
-Eisodos::Eisodos(char * Onoma){
-    OnomaEisodou = new char[strlen(Onoma)+1];
-    strcpy(OnomaEisodou,Onoma);
+Eisodos::Eisodos(int Th) : Thesh(Th){
 }
 
-PrwthEisodos::PrwthEisodos(char * Onoma,int NSegs) : Eisodos(Onoma){
+PrwthEisodos::PrwthEisodos(int NSegs) : Eisodos(1){
     Plh8osHlektronikwn = rand() % 4 +1;
     Plh8osMeYpallhlo = rand()%6 +1;
     TaDiodiaMeYpallhlo = new DiodioMeYpallhlo*[Plh8osMeYpallhlo];
@@ -19,11 +17,11 @@ PrwthEisodos::PrwthEisodos(char * Onoma,int NSegs) : Eisodos(Onoma){
     cout << "Kataskeuasthke h prwth eisodos\n";
 }
 
-E3odos::E3odos(char * Onoma):   Eisodos(Onoma){
+E3odos::E3odos(int NSegs):   Eisodos(NSegs+1){
     cout << "Kataskeuasthke h e3odos\n";
 }
 
-EndiameshEisodos :: EndiameshEisodos (char * Onoma, int NSegs) : Eisodos(Onoma){
+EndiameshEisodos :: EndiameshEisodos (int Th, int NSegs) : Eisodos(Th){
     Plh8osHlektronikwn = rand() % 4 +1;
     Plh8osMeYpallhlo = rand()%6 +1;
     TaDiodiaMeYpallhlo = new DiodioMeYpallhlo*[Plh8osMeYpallhlo];
@@ -34,10 +32,6 @@ EndiameshEisodos :: EndiameshEisodos (char * Onoma, int NSegs) : Eisodos(Onoma){
         TaHlektronikaDiodia[i] = new HelktronikoDiodio(NSegs);
     cout << "Kataskeuasthke h prwth eisodos\n";
 
-}
-
-Eisodos::~Eisodos(){
-    delete []OnomaEisodou;
 }
 
 PrwthEisodos :: ~PrwthEisodos(){
