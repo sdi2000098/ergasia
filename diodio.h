@@ -7,20 +7,20 @@ class Diodio{
         Autokinhto ** AutokinhtaDiodiou;
         int Plh8osAutokinhtwn;
     public :
-        Diodio(int );
+        Diodio(int NSegs,int TheshDiodiou);
         virtual ~Diodio();
-        void EisodosAutokinhtou(const Autokinhto &);
-        Autokinhto & E3odosAutokinhtou() ;
+        void EisodosAutokinhtou(const Autokinhto &);        //Vazei ena autokinhto
+        Autokinhto & E3odosAutokinhtou() ;                  //E3ageis ena autokinhto, epistrefei autokinhto me proorismo-1 se periptwsh apotyxias
 };
 
 class DiodioMeYpallhlo : public Diodio{
     public:
-        DiodioMeYpallhlo(int);
+        DiodioMeYpallhlo(int NSegs,int TheshDiodiou);
         ~DiodioMeYpallhlo();
 };
 
 class HelktronikoDiodio : public Diodio{
     public:
-        HelktronikoDiodio(int);
+        HelktronikoDiodio(int NSegs,int TheshDiodiou);
         ~HelktronikoDiodio();
-};
+}; 
