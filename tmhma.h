@@ -1,49 +1,53 @@
 #include "eisodos.h"
 
 class Tmhma{
+    private :
+        int Xwrhtikothta;
     protected :
         Eisodos * EisodosTmhmatos;
         Autokinhto ** AutokinhtaTouTmhmatos;
-        int Xwrhtikothta;
-        int Ari8mosAutokinhtwn;
+        int Ari8mosAutokinhtwn,TheshTmhmtatos;
+        bool OlaKala;
     public :
-        Tmhma(int);
-        ~Tmhma();
+        Tmhma(int xwros ,int Thesh);
+        virtual ~Tmhma();
         virtual void Enter(){};
         virtual void Exit(){};
         int GetXwrhtikothta() const{return Xwrhtikothta;};
-        virtual void Pass(){};
-        int GetNoOfVehicles() const{return GetNoOfVehicles};
+        virtual bool Pass(Autokinhto &);
+        int GetNoOfVehicles() const{return Ari8mosAutokinhtwn;};
+        static float Percent;
+        bool ValeToAma3i(Autokinhto & );
+        virtual void Operate();
 };
 
 class PrwtoTmhma : public Tmhma{
     private:
         Tmhma * EpomenoTmhma;
-        bool *etoimo;
     public :
-        PrwtoTmhma(Tmhma *,int Xwros,int NSegs);
-        ~PrwtoTmhma();
+        PrwtoTmhma(Tmhma *,int Xwros,int NSegs,int NewK);
         void Exit();
+        bool Pass(Autokinhto &);
+        void Operate();
 };
 
 class TeleutaioTmhma : public Tmhma{
     private:
         Tmhma * ProhgoumenoTmhma;
-        bool *etoimo;
     public:
         TeleutaioTmhma(Tmhma *,int Xwros,int NSegs);
-        ~TeleutaioTmhma();
         void Exit();
+        bool Pass(Autokinhto &);
+        void Operate();
 };
 
 class EndiamesoTmhma : public Tmhma{
     private : 
         Tmhma * EpomenoTmhma;
         Tmhma * ProhgoumenoTmhma;
-        int TheshTmhmtatos;
-        bool *etoimo;
     public :
-        EndiamesoTmhma(Tmhma * Prohgoumeno, Tmhma * Epomeno,int Xwros,int Thesh,int NSegs );
-        ~EndiamesoTmhma();
+        EndiamesoTmhma(Tmhma * Prohgoumeno, Tmhma * Epomeno,int Xwros,int Thesh,int NSegs,int NewK );
         void Exit();
+        bool Pass(Autokinhto &);
+        void Operate();
 }; 
