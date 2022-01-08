@@ -19,4 +19,10 @@ class Autokinhto{
         bool EinaiEtoimo() const{
             return Etoimothta;
         };
-};
+        void KantoEtoimo(){
+            Etoimothta = true;
+        }
+        void KantoAnetoimo(){
+            Etoimothta = false;
+        }
+}; 
