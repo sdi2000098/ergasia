@@ -2,37 +2,39 @@
 #include <cstring>
 using namespace std;
 
-Eisodos::Eisodos(int Th) : Thesh(Th){
+Eisodos::Eisodos(int Th,int NewK) : Thesh(Th),K(NewK){
 }
 
-PrwthEisodos::PrwthEisodos(int NSegs) : Eisodos(1){
+PrwthEisodos::PrwthEisodos(int NSegs,int NewK) : Eisodos(0,NewK){
+    SeiraYpallhlou = SeiraHlektronikou =0;
     Plh8osHlektronikwn = rand() % 4 +1;
     Plh8osMeYpallhlo = rand()%6 +1;
     TaDiodiaMeYpallhlo = new DiodioMeYpallhlo*[Plh8osMeYpallhlo];
     TaHlektronikaDiodia = new HelktronikoDiodio*[Plh8osHlektronikwn];
     for ( int i = 0;i<Plh8osMeYpallhlo;i++)
-        TaDiodiaMeYpallhlo[i] = new DiodioMeYpallhlo(NSegs);
+        TaDiodiaMeYpallhlo[i] = new DiodioMeYpallhlo(NSegs,0);
     for ( int i = 0; i< Plh8osHlektronikwn;i++)
-        TaHlektronikaDiodia[i] = new HelktronikoDiodio(NSegs);
+        TaHlektronikaDiodia[i] = new HelktronikoDiodio(NSegs,0);
     cout << "Kataskeuasthke h prwth eisodos\n";
 }
 
-E3odos::E3odos(int NSegs):   Eisodos(NSegs+1){
+E3odos::E3odos(int NSegs):   Eisodos(NSegs+1,0){
     cout << "Kataskeuasthke h e3odos\n";
 }
 
-EndiameshEisodos :: EndiameshEisodos (int Th, int NSegs) : Eisodos(Th){
+EndiameshEisodos :: EndiameshEisodos (int Th, int NSegs,int NewK) : Eisodos(Th,NewK){
+    SeiraYpallhlou = SeiraHlektronikou =0;
     Plh8osHlektronikwn = rand() % 4 +1;
     Plh8osMeYpallhlo = rand()%6 +1;
     TaDiodiaMeYpallhlo = new DiodioMeYpallhlo*[Plh8osMeYpallhlo];
     TaHlektronikaDiodia = new HelktronikoDiodio*[Plh8osHlektronikwn];
      for ( int i = 0;i<Plh8osMeYpallhlo;i++)
-        TaDiodiaMeYpallhlo[i] = new DiodioMeYpallhlo(NSegs);
+        TaDiodiaMeYpallhlo[i] = new DiodioMeYpallhlo(NSegs,Th);
     for ( int i = 0; i< Plh8osHlektronikwn;i++)
-        TaHlektronikaDiodia[i] = new HelktronikoDiodio(NSegs);
+        TaHlektronikaDiodia[i] = new HelktronikoDiodio(NSegs,Th);
     cout << "Kataskeuasthke h prwth eisodos\n";
 
-}
+} 
 
 PrwthEisodos :: ~PrwthEisodos(){
     for  ( int i = 0;i<Plh8osMeYpallhlo;i++)
@@ -58,26 +60,6 @@ EndiameshEisodos :: ~EndiameshEisodos(){
     cout << "Katastrafhke mia endiamesh e3odos\n";
 }
 
-Autokinhto & PrwthEisodos :: Afairesh(){
-    if ( rand ()%2)
-        return TaDiodiaMeYpallhlo[rand()%Plh8osMeYpallhlo]->E3odosAutokinhtou();
-    else    
-          return TaHlektronikaDiodia[rand()%Plh8osHlektronikwn]->E3odosAutokinhtou();
-}  
-
-Autokinhto & E3odos :: Afairesh(){
-    cout<< " Den yparxoun didodia sthn e3odo wste na afaire8oun autokinhta\n";
-    Autokinhto Epistrofhs(-1,-1);
-    return Epistrofhs;
-}
-
-Autokinhto & EndiameshEisodos :: Afairesh(){
-    if ( rand ()%2)
-        return TaDiodiaMeYpallhlo[rand()%Plh8osMeYpallhlo]->E3odosAutokinhtou();
-    else    
-          return TaHlektronikaDiodia[rand()%Plh8osHlektronikwn]->E3odosAutokinhtou();
-}
-
 void PrwthEisodos:: Pros8esh(Autokinhto & Neo){
     if ( rand()%2)
         TaDiodiaMeYpallhlo[rand()%Plh8osMeYpallhlo]->EisodosAutokinhtou(Neo);
@@ -95,3 +77,88 @@ void EndiameshEisodos:: Pros8esh(Autokinhto & Neo){
     else
         TaHlektronikaDiodia[rand()%Plh8osHlektronikwn]->EisodosAutokinhtou(Neo);
 }
+
+Autokinhto & PrwthEisodos :: AfaireseApoYpallhlo(){
+    for (int i=0;i<Plh8osMeYpallhlo;i++){
+        Autokinhto GiaEpistrofh = TaDiodiaMeYpallhlo[SeiraYpallhlou++]->E3odosAutokinhtou();
+        if ( GiaEpistrofh.E3odos() != -1 || i == Plh8osMeYpallhlo-1)
+            return GiaEpistrofh;
+        if (SeiraYpallhlou == Plh8osMeYpallhlo)
+            SeiraYpallhlou = 0;
+    }
+}
+Autokinhto & E3odos :: AfaireseApoYpallhlo(){
+    cout << "Den yparxoun tameia sthn e3odo\n";
+    Autokinhto GiaEpistrofh(-1,-1);
+    return GiaEpistrofh;
+}
+
+Autokinhto & EndiameshEisodos :: AfaireseApoYpallhlo(){
+    for (int i=0;i<Plh8osMeYpallhlo;i++){
+        Autokinhto GiaEpistrofh = TaDiodiaMeYpallhlo[SeiraYpallhlou++]->E3odosAutokinhtou();
+        if ( GiaEpistrofh.E3odos() != -1 || i == Plh8osMeYpallhlo-1)
+            return GiaEpistrofh;
+        if (SeiraYpallhlou == Plh8osMeYpallhlo)
+            SeiraYpallhlou = 0;
+    }
+}
+
+Autokinhto & PrwthEisodos :: AfaireseApoHlektroniko(){
+    for (int i=0;i<Plh8osHlektronikwn;i++){
+        Autokinhto GiaEpistrofh = TaHlektronikaDiodia[SeiraHlektronikou++]->E3odosAutokinhtou();
+        if ( GiaEpistrofh.E3odos() != -1 || i == Plh8osHlektronikwn-1)
+            return GiaEpistrofh;
+        if (SeiraHlektronikou == Plh8osHlektronikwn)
+            SeiraHlektronikou = 0;
+    }
+}
+
+Autokinhto & EndiameshEisodos :: AfaireseApoHlektroniko(){
+    for (int i=0;i<Plh8osHlektronikwn;i++){
+        Autokinhto GiaEpistrofh = TaHlektronikaDiodia[SeiraHlektronikou++]->E3odosAutokinhtou();
+        if ( GiaEpistrofh.E3odos() != -1 || i == Plh8osHlektronikwn-1)
+            return GiaEpistrofh;
+        if (SeiraHlektronikou == Plh8osHlektronikwn)
+            SeiraHlektronikou = 0;
+    }
+}
+
+Autokinhto & E3odos :: AfaireseApoHlektroniko(){
+    cout << "Den yparxoun tameia sthn e3odo\n";
+    Autokinhto GiaEpistrofh(-1,-1);
+    return GiaEpistrofh;
+}
+
+Autokinhto ** Eisodos :: Operate(int PosaNaVgoun){
+    if ( PosaNaVgoun == 0)  return NULL;
+    int PosaVghkan=0;
+    Autokinhto ** PinakasEpistrofhs = new Autokinhto*[PosaNaVgoun];
+    for (int i =0;i<K;i++){
+        Autokinhto ApoYpallhlo = AfaireseApoYpallhlo();
+        PinakasEpistrofhs[PosaVghkan++] = new Autokinhto(ApoYpallhlo);
+        if (PosaVghkan == PosaNaVgoun)
+            break;
+        Autokinhto ApoHlektroniko = AfaireseApoHlektroniko();
+        PinakasEpistrofhs[PosaVghkan++] = new Autokinhto(ApoHlektroniko);
+        if (PosaVghkan == PosaNaVgoun)
+            break;
+        ApoHlektroniko = AfaireseApoHlektroniko();
+        PinakasEpistrofhs[PosaVghkan++] = new Autokinhto(ApoHlektroniko);
+        if (PosaVghkan == PosaNaVgoun)
+            break;
+    }
+    if ( PosaNaVgoun == PosaVghkan){
+        K--;
+        return PinakasEpistrofhs;
+    }
+    PinakasEpistrofhs[PosaVghkan] = new Autokinhto(-1,-1);
+    K++;
+    int limit = rand()%66;
+    for ( int i =0;i<limit;i++){
+        Autokinhto Neo(rand()%(NSegs+1-Thesh) +Thesh+1,-1);
+        Pros8esh(Neo);
+    }
+    PinakasEpistrofhs = (Autokinhto**)realloc(PinakasEpistrofhs,(PosaVghkan+1)*sizeof(Autokinhto *));
+    return PinakasEpistrofhs;
+}
+
