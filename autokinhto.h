@@ -9,7 +9,6 @@ class Autokinhto{
         bool Etoimothta;
     public :
         Autokinhto(int e3odos,int tmhma) : KomvosE3odou(e3odos), TrexwnTmhma(tmhma), Etoimothta(false){};
-        ~Autokinhto(){cout << "Ena autokinhto katastrafhke\n";};
         int E3odos() const{
             return KomvosE3odou;
         };
@@ -24,5 +23,8 @@ class Autokinhto{
         }
         void KantoAnetoimo(){
             Etoimothta = false;
+        }
+        void Alla3eThnThesh(int thesh){
+            TrexwnTmhma = thesh;
         }
 }; 

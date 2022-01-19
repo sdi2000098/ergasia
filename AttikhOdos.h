@@ -1,11 +1,11 @@
-#include <tmhma.h>
+#include "tmhma.h"
 
 class AttikhOdos{
     private: 
         int NSegs,Plh8osOxhmatwn;
         Tmhma ** TmhmataAttikhs;
     public :
-        AttikhOdos(int NSegs);
+        AttikhOdos(int NSegs,int NewK,float Percent);
         ~AttikhOdos();
-        Operate();
+        void Operate();
 };

@@ -8,9 +8,9 @@ class Diodio{
         int Plh8osAutokinhtwn;
     public :
         Diodio(int NSegs,int TheshDiodiou);
-        virtual ~Diodio();
+        virtual ~Diodio() ;
         void EisodosAutokinhtou(const Autokinhto &);        //Vazei ena autokinhto
-        Autokinhto & E3odosAutokinhtou() ;                  //E3ageis ena autokinhto, epistrefei autokinhto me proorismo-1 se periptwsh apotyxias
+        Autokinhto  E3odosAutokinhtou() ;                  //E3ageis ena autokinhto, epistrefei autokinhto me proorismo-1 se periptwsh apotyxias
 };
 
 class DiodioMeYpallhlo : public Diodio{
